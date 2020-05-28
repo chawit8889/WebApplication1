@@ -17,6 +17,7 @@ namespace WebApplication1.Models
         }
 
         public virtual DbSet<Item> Item { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +36,25 @@ namespace WebApplication1.Models
 
                 entity.Property(e => e.ItemName)
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Person>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Age).HasColumnType("decimal(4, 2)");
+
+                entity.Property(e => e.Firstname)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Lastname)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sex)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
             });
 

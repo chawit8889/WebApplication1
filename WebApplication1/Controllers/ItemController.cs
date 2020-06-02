@@ -16,16 +16,16 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(string itemid, string itemname )
+        public IActionResult Index(string itemid, string itemname)
         {
             TestContext context = new TestContext();
-            if(itemname==null)
+            if (itemname == null)
             {
                 itemname = "";
             }
             var items = context.Item
-                .Where(i=>i.ItemId.ToString().Contains(itemid)
-                &&i.ItemName .Contains(itemname ))
+                .Where(i => i.ItemId.ToString().Contains(itemid)
+                && i.ItemName.Contains(itemname))
               .ToList();
             return View(items);
         }
@@ -43,7 +43,36 @@ namespace WebApplication1.Controllers
             context.SaveChanges();
 
             return Json(item);
+        }
+            [HttpGet]
+        public IActionResult Update(int id)
+        {
+            TestContext context = new TestContext();
+            var item= context.Item.Find(id);
+            return View(item);
 
         }
+        [HttpPost]
+        public IActionResult Update
+           (Item item)
+        {
+            TestContext context = new TestContext();
+            context.Item.Update (item);
+            context.SaveChanges();
+
+            return View (item);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            TestContext context = new TestContext();
+            var item = context.Item.Find(id);
+            context.Item.Remove(item);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
     }
 }

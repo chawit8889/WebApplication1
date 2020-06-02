@@ -4,7 +4,8 @@
 }
 
 <h1>Index</h1>
-
+<a class="btn btn-info"
+<a asp-controller="Item" asp-action="InsertItem">Insert</a>
 <form method="post">
     <div class="form-group row">
         <label for="itemid" class="col-sm-2 col-form-label">Item ID</label>
@@ -24,16 +25,17 @@
         foreach (var item in Model )
         {
             @item.ItemId;
-                
+
         }
     }
     <table class="table">
         <thead>
             <tr>
-                
+
                 <th scope="col">ItemId</th>
                 <th scope="col">ItemName</th>
-               
+                <th>Edit</th>
+
             </tr>
         </thead>
         <tbody>
@@ -42,15 +44,38 @@
                 foreach (var item in Model)
                 {
                    <tr>
-                       
+
                        <td>@item.ItemId </td>
                        <td>@item.ItemName  </td>
+                       <td>
+                           <a class="btn btn-outline-primary"
+                              asp-controller="Item"
+                              asp-action="update"
+                              asp-route-id="@item.ItemId">Update</a>
+
+                           <a class="btn btn-outline-danger"
+                              id="btn-delete"
+                              asp-controller="Item"
+                              asp-action="Delete"
+                              asp-route-id="@item.ItemId">Delete</a>
+                       </td>
                    </tr>
 
                 }
             }
-            
-           
+
+
         </tbody>
     </table>
+    @section scripts
+    {
+<script>
+    $(document).ready(function(){//on page load
+    $('#btn-delete').click(function(){
+    return confirm('ยืนยันการลบข้อมูล');
+    });
+    });
+</script>
+    }
+
 </form>

@@ -1,0 +1,15 @@
+﻿@model Item  
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update</h1>
+
+<form method="post">
+    Item ID:
+    <input type="text" name="ItemId" asp-for="ItemId" />
+
+    Item Name:
+    <input type="text" name="ItemName" asp-for="ItemName" />
+    <button type="submit" value=" save">save</button>
+</form>
